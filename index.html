@@ -1064,24 +1064,24 @@
       <p class="section-sub">Ready to take your business forward? Reach out — we respond promptly.</p>
     </div>
     <div class="contact-wrap">
-      <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+      <form class="contact-form reveal" id="contactForm" onsubmit="handleSubmit(event)">
         <div class="form-row">
           <div class="fg">
             <label>Full Name *</label>
-            <input type="text" placeholder="Your full name" required/>
+            <input id="cf-name" type="text" placeholder="Your full name" required/>
           </div>
           <div class="fg">
             <label>Phone Number *</label>
-            <input type="tel" placeholder="+254 7XX XXX XXX" required/>
+            <input id="cf-phone" type="tel" placeholder="+254 7XX XXX XXX" required/>
           </div>
         </div>
         <div class="fg">
           <label>Email Address</label>
-          <input type="email" placeholder="your@email.com"/>
+          <input id="cf-email" type="email" placeholder="your@email.com"/>
         </div>
         <div class="fg">
           <label>Service Required *</label>
-          <select required>
+          <select id="cf-service" required>
             <option value="" disabled selected>Select a service...</option>
             <option>Accounting Services</option>
             <option>Statutory Compliance</option>
@@ -1098,11 +1098,12 @@
         </div>
         <div class="fg">
           <label>Message</label>
-          <textarea placeholder="Tell us about your business needs..."></textarea>
+          <textarea id="cf-message" placeholder="Tell us about your business needs..."></textarea>
         </div>
-        <button type="submit" class="submit-btn">
+        <button type="submit" class="submit-btn" id="submitBtn">
           <i class="fas fa-paper-plane"></i> Send Message
         </button>
+        <div id="form-msg" style="display:none;margin-top:1rem;padding:14px 20px;border-radius:8px;font-size:0.9rem;font-weight:500;"></div>
       </form>
 
       <div class="contact-details reveal">
@@ -1191,7 +1192,13 @@
 <a href="#hero" id="btt" title="Back to top"><i class="fas fa-arrow-up"></i></a>
 
 <!-- ══════════ SCRIPTS ══════════ -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+  // ── Supabase config ──
+  const SUPABASE_URL = 'https://pnvnzwmtfokuaygudmjs.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBud256d210Zm9rdWF5Z3VkbWpzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE1NDUyNjgsImV4cCI6MjEwNzEyMTI2OH0.SN_SySsfownBy5RHDJPTqLf8kDee8k48Tvj4UfHX6VU';
+  const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
   // Hamburger
   const ham = document.getElementById('hamburger');
   const nl  = document.getElementById('navLinks');
@@ -1217,17 +1224,59 @@
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // Form submit
-  function handleSubmit(e) {
+  // ── Contact Form → Supabase ──
+  async function handleSubmit(e) {
     e.preventDefault();
-    const btn = e.target.querySelector('.submit-btn');
-    btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
-    btn.style.background = '#16a34a';
-    setTimeout(() => {
+    const btn = document.getElementById('submitBtn');
+    const msg = document.getElementById('form-msg');
+
+    // Get values
+    const name    = document.getElementById('cf-name').value.trim();
+    const phone   = document.getElementById('cf-phone').value.trim();
+    const email   = document.getElementById('cf-email').value.trim();
+    const service = document.getElementById('cf-service').value;
+    const message = document.getElementById('cf-message').value.trim();
+
+    // Loading state
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    btn.disabled = true;
+
+    try {
+      const { error } = await db.from('contacts').insert([{
+        name, phone, email, service, message,
+        submitted_at: new Date().toISOString()
+      }]);
+
+      if (error) throw error;
+
+      // Success
+      btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+      btn.style.background = '#16a34a';
+      msg.style.display = 'block';
+      msg.style.background = 'rgba(22,163,74,0.15)';
+      msg.style.color = '#16a34a';
+      msg.style.border = '1px solid rgba(22,163,74,0.3)';
+      msg.innerHTML = '✅ Thank you <strong>' + name + '</strong>! We have received your message and will contact you shortly on <strong>' + phone + '</strong>.';
+      document.getElementById('contactForm').reset();
+
+      setTimeout(() => {
+        btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+        btn.style.background = '';
+        btn.disabled = false;
+        msg.style.display = 'none';
+      }, 6000);
+
+    } catch (err) {
+      // Error state
       btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
-      btn.style.background = '';
-      e.target.reset();
-    }, 3000);
+      btn.disabled = false;
+      msg.style.display = 'block';
+      msg.style.background = 'rgba(220,38,38,0.15)';
+      msg.style.color = '#dc2626';
+      msg.style.border = '1px solid rgba(220,38,38,0.3)';
+      msg.innerHTML = '❌ Sorry, something went wrong. Please call us directly on <strong>+254 794 088 216</strong> or WhatsApp us.';
+      console.error('Supabase error:', err);
+    }
   }
 </script>
 </body>
