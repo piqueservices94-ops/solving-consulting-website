@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Management Services | Solving Consulting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --navy-light: #1e4db7;
+            --navy: #1a3a8f;
+            --navy-dark: #0d1f5c;
+            --gold: #c9a227;
+            --gold-light: #e4c04a;
+            --dark: #07101f;
+            --text-light: #f4f4f5;
+            --text-dark: #333333;
+            --gray-light: #f8f9fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--gray-light);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--navy-dark);
+        }
+
+        /* NAVBAR */
+        #nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 5%;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .nav-logo {
+            height: 60px;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--navy-dark);
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #ffffff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            min-width: 280px;
+            padding: 1rem 0;
+            border-top: 3px solid var(--gold);
+            border-radius: 0 0 8px 8px;
+        }
+
+        .nav-dropdown:hover .dropdown-menu {
+            display: flex;
+            flex-direction: column;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .dropdown-menu a {
+            padding: 0.7rem 1.5rem;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .dropdown-menu a:hover {
+            background: var(--gray-light);
+            color: var(--navy);
+            padding-left: 1.8rem;
+        }
+
+        .dm-icon {
+            color: var(--gold);
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .nav-cta {
+            background: var(--gold);
+            color: #ffffff !important;
+            padding: 0.6rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 600 !important;
+            transition: all 0.3s !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--navy-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 30px;
+            height: 3px;
+            background: var(--navy-dark);
+            transition: 0.3s;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            position: relative;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 5% 4rem;
+            background: linear-gradient(rgba(7, 16, 31, 0.85), rgba(13, 31, 92, 0.8)), url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1800&q=85') center/cover no-repeat;
+            color: #ffffff;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-chip {
+            display: inline-block;
+            background: rgba(201, 162, 39, 0.2);
+            color: var(--gold);
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            color: var(--text-light);
+            opacity: 0.9;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: #ffffff;
+            border: 2px solid var(--gold);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--gold);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+        }
+
+        .btn-outline:hover {
+            background: #ffffff;
+            color: var(--navy-dark);
+        }
+
+        /* MEET THE TEAM */
+        .team-section {
+            background: var(--dark);
+            color: var(--text-light);
+            padding: 6rem 5%;
+        }
+
+        .team-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .team-content h2 {
+            color: var(--gold);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .team-statement {
+            font-size: 1.4rem;
+            font-weight: 300;
+            color: #ffffff;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--gold);
+            padding-left: 1.5rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+        }
+
+        .team-content p {
+            margin-bottom: 1.5rem;
+            opacity: 0.85;
+            font-size: 1.05rem;
+        }
+
+        .team-image-box {
+            position: relative;
+            height: 100%;
+            min-height: 400px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .team-image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        /* WHAT WE OFFER */
+        .services-section {
+            padding: 6rem 5%;
+            background: var(--gray-light);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            color: var(--navy-dark);
+        }
+
+        .section-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: #ffffff;
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            border-bottom: 4px solid transparent;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-bottom: 4px solid var(--gold);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(26, 58, 143, 0.05);
+            color: var(--navy);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .service-card:hover .service-icon {
+            background: var(--navy);
+            color: var(--gold);
+        }
+
+        .service-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+        }
+
+        .service-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* WHY CHOOSE US */
+        .why-section {
+            padding: 6rem 5%;
+            background: #ffffff;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .why-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .why-item i {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .why-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--navy-dark);
+        }
+
+        .why-item p {
+            color: #666;
+        }
+
+        /* CTA BANNER */
+        .cta-banner {
+            background: var(--gold);
+            padding: 5rem 5%;
+            text-align: center;
+            color: var(--navy-dark);
+        }
+
+        .cta-banner h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--navy-dark);
+        }
+
+        .cta-banner p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 500;
+        }
+
+        .btn-dark {
+            background: var(--navy-dark);
+            color: #ffffff;
+            border: 2px solid var(--navy-dark);
+        }
+
+        .btn-dark:hover {
+            background: transparent;
+            color: var(--navy-dark);
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--dark);
+            color: #aaa;
+            padding: 4rem 5% 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo {
+            height: 70px;
+            margin-bottom: 1rem;
+            filter: brightness(0) invert(1);
+        }
+
+        .footer-col h4 {
+            color: #ffffff;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: var(--gold);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            gap: 1rem;
+        }
+
+        .contact-item i {
+            color: var(--gold);
+            margin-top: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* WHATSAPP FLOAT */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: #FFF;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            color: #FFF;
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 992px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #ffffff;
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                border-top: none;
+                padding: 0 0 0 1rem;
+                min-width: 100%;
+            }
+            .team-container {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR EXTREMELY MATCHING REQUIRED CODE -->
+    <nav id="nav">
+      <a href="index.html" class="nav-brand">
+        <img src="logo_transparent.png" alt="Solving Consulting" class="nav-logo"/>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#about">About</a></li>
+        <li class="nav-dropdown">
+          <a href="index.html#services">Services <i class="fas fa-chevron-down arrow"></i></a>
+          <div class="dropdown-menu">
+            <a href="accounting.html"><span class="dm-icon"><i class="fas fa-calculator"></i></span>Accounting Services</a>
+            <a href="statutory.html"><span class="dm-icon"><i class="fas fa-file-contract"></i></span>Statutory Compliance</a>
+            <a href="audit.html"><span class="dm-icon"><i class="fas fa-search-dollar"></i></span>Audit Services</a>
+            <a href="kra.html"><span class="dm-icon"><i class="fas fa-landmark"></i></span>KRA Tax Services</a>
+            <a href="business-management.html"><span class="dm-icon"><i class="fas fa-briefcase"></i></span>Business Management</a>
+            <a href="marketing.html"><span class="dm-icon"><i class="fas fa-bullhorn"></i></span>Marketing & Advertisement</a>
+            <a href="social-media.html"><span class="dm-icon"><i class="fas fa-share-alt"></i></span>Social Media Management</a>
+            <a href="property.html"><span class="dm-icon"><i class="fas fa-building"></i></span>Property Management</a>
+            <a href="web-development.html"><span class="dm-icon"><i class="fas fa-laptop-code"></i></span>Website Design & Development</a>
+            <a href="software-erp.html"><span class="dm-icon"><i class="fas fa-cogs"></i></span>Software & ERP Development</a>
+          </div>
+        </li>
+        <li><a href="kra.html">KRA</a></li>
+        <li><a href="index.html#why">Why Us</a></li>
+        <li><a href="index.html#contact" class="nav-cta">Contact Us</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="hero">
+        <div class="hero-content">
+            <span class="hero-chip">Business Management</span>
+            <h1>Your Business Deserves a Co-Pilot</h1>
+            <p>We manage the complexity so you manage the vision. Experience tailored operational excellence and strategy that transforms how your enterprise grows.</p>
+            <div class="btn-group">
+                <a href="#contact" class="btn btn-primary">Get a Consultation</a>
+                <a href="#services" class="btn btn-outline">Explore Services</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MEET THE TEAM -->
+    <section class="team-section reveal">
+        <div class="team-container">
+            <div class="team-content">
+                <h2>Meet Our Business Management Team</h2>
+                <div class="team-statement">
+                    "We don't just advise — we execute. Strategy meets action to ensure operational excellence is delivered."
+                </div>
+                <p>Running a successful business is about more than just a great idea; it's about execution. <strong>Your business deserves a co-pilot</strong> that understands the intricacies of today's fast-paced corporate environment. Our Business Management Team at Solving Consulting is dedicated to navigating the challenges alongside you.</p>
+                <p><strong>From startup to scale-up we've seen it all.</strong> We know that managing growth requires precise operational planning, resource optimization, and clear strategic direction. We roll up our sleeves and embed ourselves in your operations. <strong>We manage the complexity so you manage the vision.</strong></p>
+                <p>When you partner with our experts, you're getting a team fiercely committed to your outcomes. For us, consulting isn't just about glossy presentations; it's about tangible results. <strong>Your success is our KPI.</strong></p>
+            </div>
+            <div class="team-image-box">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80" alt="Business Management Team">
+            </div>
+        </div>
+    </section>
+
+    <!-- WHAT WE OFFER -->
+    <section id="services" class="services-section reveal">
+        <div class="section-header">
+            <h2>What We Offer</h2>
+            <p>Comprehensive management solutions designed to streamline operations and drive sustainable growth.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-chess-knight"></i></div>
+                <h3>Business Strategy & Planning</h3>
+                <p>Comprehensive blueprints tailored to your market. We help you define your long-term goals and the step-by-step roadmaps required to achieve them.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-cogs"></i></div>
+                <h3>Operations Management</h3>
+                <p>Streamline day-to-day operations for maximum efficiency. We identify bottlenecks and implement systems that allow your business to run like a well-oiled machine.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-sync-alt"></i></div>
+                <h3>Process Improvement</h3>
+                <p>Continuous optimization of your business processes. We apply lean methodologies to eliminate waste, reduce costs, and enhance overall productivity.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>Performance Monitoring & KPIs</h3>
+                <p>Data-driven insights to track what matters. We establish key performance indicators and implement tracking systems to keep your goals on target.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-users"></i></div>
+                <h3>HR & Staff Management</h3>
+                <p>Build and retain a high-performing team. We offer support in organizational structure, talent acquisition, training, and performance evaluation.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-file-signature"></i></div>
+                <h3>Registration & Licensing</h3>
+                <p>Navigate red tape effortlessly. We handle the complexities of business registration, permits, and industry-specific licensing requirements.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-rocket"></i></div>
+                <h3>Startup Advisory</h3>
+                <p>Transform your concept into a viable company. We provide essential mentorship, foundation planning, and market entry strategies for new ventures.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-directions"></i></div>
+                <h3>Turnaround Consulting</h3>
+                <p>Rescue and revitalize struggling operations. Our intensive turnaround strategies help stabilize finances and pivot business models for recovery.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-search"></i></div>
+                <h3>Feasibility Studies</h3>
+                <p>Make informed investment decisions. We conduct thorough market and financial feasibility analyses before you commit capital to new projects.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY OUR TEAM -->
+    <section class="why-section reveal">
+        <div class="section-header">
+            <h2>Why Choose Our Team?</h2>
+            <p>We bring a unique blend of strategic thinking and hands-on execution.</p>
+        </div>
+        <div class="why-grid">
+            <div class="why-item">
+                <i class="fas fa-brain"></i>
+                <h3>Proven Expertise</h3>
+                <p>Our consultants boast years of diverse industry experience, allowing us to bring proven, cross-sector methodologies to your specific business challenges.</p>
+            </div>
+            <div class="why-item">
+                <i class="fas fa-sliders-h"></i>
+                <h3>Tailored Solutions</h3>
+                <p>We understand that no two businesses are the same. We don't believe in one-size-fits-all; every strategy is custom-built around your unique environment.</p>
+            </div>
+            <div class="why-item">
+                <i class="fas fa-trophy"></i>
+                <h3>Results Driven</h3>
+                <p>We are obsessed with outcomes. Everything we do is measured against tangible key performance indicators, ensuring you see a clear return on investment.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA BANNER -->
+    <section class="cta-banner reveal">
+        <h2>Ready to Transform Your Business?</h2>
+        <p>Let's build a robust management framework that sets you up for long-term success. Reach out to our experts today.</p>
+        <a href="index.html#contact" class="btn btn-dark">Contact Us Today</a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <img src="logo_transparent.png" alt="Solving Consulting" class="footer-logo">
+                <p>Service Beyond Your Needs. We are a premier business consulting firm in Nairobi dedicated to providing top-tier professional services across diverse sectors.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About Us</a></li>
+                    <li><a href="index.html#services">Our Services</a></li>
+                    <li><a href="index.html#why">Why Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Disclaimer</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Us</h4>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>Kamrose Plaza, Suite 3, Naivasha Road, Dagoretti — Riruta, Nairobi</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <p>+254 794 088 216</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>kimofficepeter@gmail.com</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-mobile-alt"></i>
+                    <p>Paybill: 222111<br>Account: 060000000697</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Solving Consulting & Business Services. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- WHATSAPP FLOAT -->
+    <a href="https://wa.me/254794088216" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Hamburger Menu
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Scroll Reveal
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); // Trigger once on load
+    </script>
+</body>
+</html>

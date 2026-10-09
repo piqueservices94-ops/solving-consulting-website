@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Property Management | Solving Consulting</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary: #1a3a8f;
+      --primary-dark: #0d1f5c;
+      --primary-light: #1e4db7;
+      --gold: #c9a227;
+      --gold-light: #e4c04a;
+      --dark: #07101f;
+      --light: #f8f9fa;
+      --text: #333333;
+      --text-light: #666666;
+      --font-heading: 'Cormorant Garamond', serif;
+      --font-body: 'Inter', sans-serif;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: var(--font-body);
+      color: var(--text);
+      line-height: 1.6;
+      background-color: var(--light);
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    a {
+      text-decoration: none;
+    }
+    
+    /* Navbar Styles */
+    #nav {
+      background-color: #ffffff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 5%;
+    }
+    
+    .nav-brand {
+      display: flex;
+      align-items: center;
+    }
+    
+    .nav-logo {
+      height: 50px;
+      width: auto;
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+      align-items: center;
+      margin: 0;
+    }
+    
+    .nav-links > li {
+      margin-left: 2rem;
+      position: relative;
+    }
+    
+    .nav-links > li > a {
+      color: var(--primary-dark);
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+    
+    .nav-links > li > a:hover {
+      color: var(--gold);
+    }
+    
+    .nav-cta {
+      background-color: var(--gold);
+      color: #fff !important;
+      padding: 0.5rem 1.5rem;
+      border-radius: 4px;
+      font-weight: 600 !important;
+      transition: background-color 0.3s ease !important;
+    }
+    
+    .nav-cta:hover {
+      background-color: var(--primary-dark) !important;
+    }
+    
+    /* Dropdown */
+    .nav-dropdown:hover .dropdown-menu {
+      display: block;
+    }
+    
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #fff;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      min-width: 250px;
+      border-radius: 4px;
+      padding: 0.5rem 0;
+      z-index: 1001;
+    }
+    
+    .dropdown-menu a {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1.5rem;
+      color: var(--text);
+      transition: background 0.2s, color 0.2s;
+    }
+    
+    .dropdown-menu a:hover {
+      background-color: var(--light);
+      color: var(--primary);
+    }
+    
+    .dm-icon {
+      color: var(--gold);
+      margin-right: 10px;
+      width: 20px;
+      text-align: center;
+    }
+    
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 5px;
+    }
+    
+    .hamburger span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background-color: var(--primary-dark);
+      transition: 0.3s;
+    }
+    
+    /* Hero Section */
+    .hero {
+      position: relative;
+      background: url('https://images.unsplash.com/photo-1560184897-ae75f418493e?w=1800&q=85') no-repeat center center/cover;
+      height: 70vh;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(7, 16, 31, 0.75);
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      padding: 0 20px;
+    }
+    
+    .chip {
+      background-color: var(--gold);
+      color: #fff;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    
+    .hero h1 {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      font-weight: 300;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      border-radius: 4px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 0.9rem;
+    }
+    
+    .btn-primary {
+      background-color: var(--gold);
+      color: #fff;
+      border: 2px solid var(--gold);
+    }
+    
+    .btn-primary:hover {
+      background-color: transparent;
+      color: var(--gold);
+    }
+    
+    .btn-outline {
+      background-color: transparent;
+      color: #fff;
+      border: 2px solid #fff;
+      margin-left: 15px;
+    }
+    
+    .btn-outline:hover {
+      background-color: #fff;
+      color: var(--primary-dark);
+    }
+    
+    /* Meet Our Team */
+    .meet-team {
+      background-color: var(--dark);
+      color: #fff;
+      padding: 100px 5%;
+      text-align: center;
+    }
+    
+    .meet-team h2 {
+      color: var(--gold);
+      font-size: 3rem;
+      margin-bottom: 30px;
+    }
+    
+    .team-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .team-content p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      color: #d1d5db;
+      font-weight: 300;
+    }
+    
+    .highlight-text {
+      font-size: 1.5rem !important;
+      color: #fff !important;
+      font-style: italic;
+      font-family: var(--font-heading);
+      margin: 30px 0 !important;
+      border-left: 4px solid var(--gold);
+      padding-left: 20px;
+      text-align: left;
+    }
+    
+    /* What We Offer */
+    .services-section {
+      padding: 100px 5%;
+      background-color: #fff;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    
+    .section-header h2 {
+      font-size: 2.5rem;
+      color: var(--primary-dark);
+      margin-bottom: 15px;
+    }
+    
+    .section-header p {
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .service-card {
+      background: var(--light);
+      padding: 40px 30px;
+      border-radius: 8px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-bottom: 4px solid transparent;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      border-bottom: 4px solid var(--gold);
+    }
+    
+    .service-icon {
+      width: 70px;
+      height: 70px;
+      background-color: rgba(201, 162, 39, 0.1);
+      color: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin: 0 auto 25px;
+    }
+    
+    .service-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      color: var(--primary-dark);
+    }
+    
+    .service-card p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+    
+    /* Why Choose Us */
+    .why-us {
+      padding: 100px 5%;
+      background-color: var(--light);
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      margin-top: 50px;
+    }
+    
+    .feature-item {
+      text-align: center;
+    }
+    
+    .feature-icon {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    
+    .feature-item h4 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: var(--dark);
+    }
+    
+    .feature-item p {
+      color: var(--text-light);
+    }
+    
+    /* CTA Banner */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+      padding: 80px 5%;
+      text-align: center;
+      color: var(--dark);
+    }
+    
+    .cta-banner h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    
+    .cta-banner p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .cta-banner .btn-primary {
+      background-color: var(--dark);
+      border-color: var(--dark);
+      color: #fff;
+    }
+    
+    .cta-banner .btn-primary:hover {
+      background-color: transparent;
+      color: var(--dark);
+    }
+    
+    /* Footer */
+    footer {
+      background-color: var(--dark);
+      color: #fff;
+      padding: 60px 5% 30px;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    
+    .footer-col h4 {
+      color: var(--gold);
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+    }
+    
+    .footer-col p {
+      color: #d1d5db;
+      margin-bottom: 10px;
+    }
+    
+    .footer-col a {
+      color: #d1d5db;
+      display: block;
+      margin-bottom: 10px;
+      transition: color 0.3s;
+    }
+    
+    .footer-col a:hover {
+      color: var(--gold);
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: #9ca3af;
+    }
+    
+    /* WhatsApp Float */
+    .whatsapp-float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 40px;
+      right: 40px;
+      background-color: #25d366;
+      color: #FFF;
+      border-radius: 50px;
+      text-align: center;
+      font-size: 30px;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s;
+    }
+    
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      color: #fff;
+    }
+    
+    /* Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+    
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Responsive */
+    @media (max-width: 991px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .hamburger {
+        display: flex;
+      }
+      
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: -100%;
+        width: 100%;
+        background-color: #fff;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        transition: 0.3s;
+      }
+      
+      .nav-links.active {
+        left: 0;
+      }
+      
+      .nav-links > li {
+        margin: 10px 0;
+        width: 100%;
+      }
+      
+      .dropdown-menu {
+        position: static;
+        box-shadow: none;
+        padding-left: 20px;
+        display: none;
+      }
+      
+      .nav-dropdown.active .dropdown-menu {
+        display: block;
+      }
+      
+      .hero h1 {
+        font-size: 3rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      .meet-team h2 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR (EXACTLY AS PROVIDED) -->
+  <nav id="nav">
+    <a href="index.html" class="nav-brand">
+      <img src="logo_transparent.png" alt="Solving Consulting" class="nav-logo"/>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html#about">About</a></li>
+      <li class="nav-dropdown">
+        <a href="index.html#services">Services <i class="fas fa-chevron-down arrow"></i></a>
+        <div class="dropdown-menu">
+          <a href="accounting.html"><span class="dm-icon"><i class="fas fa-calculator"></i></span>Accounting Services</a>
+          <a href="statutory.html"><span class="dm-icon"><i class="fas fa-file-contract"></i></span>Statutory Compliance</a>
+          <a href="audit.html"><span class="dm-icon"><i class="fas fa-search-dollar"></i></span>Audit Services</a>
+          <a href="kra.html"><span class="dm-icon"><i class="fas fa-landmark"></i></span>KRA Tax Services</a>
+          <a href="business-management.html"><span class="dm-icon"><i class="fas fa-briefcase"></i></span>Business Management</a>
+          <a href="marketing.html"><span class="dm-icon"><i class="fas fa-bullhorn"></i></span>Marketing & Advertisement</a>
+          <a href="social-media.html"><span class="dm-icon"><i class="fas fa-share-alt"></i></span>Social Media Management</a>
+          <a href="property.html"><span class="dm-icon"><i class="fas fa-building"></i></span>Property Management</a>
+          <a href="web-development.html"><span class="dm-icon"><i class="fas fa-laptop-code"></i></span>Website Design & Development</a>
+          <a href="software-erp.html"><span class="dm-icon"><i class="fas fa-cogs"></i></span>Software & ERP Development</a>
+        </div>
+      </li>
+      <li><a href="kra.html">KRA</a></li>
+      <li><a href="index.html#why">Why Us</a></li>
+      <li><a href="index.html#contact" class="nav-cta">Contact Us</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="hero-content reveal">
+      <span class="chip">Property Management</span>
+      <h1>Your Property, Working Harder For You</h1>
+      <p>Enjoy a zero-stress landlord experience. We protect your real estate investments like they're our own, maximizing returns and minimizing hassle.</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn btn-primary">Get a Management Proposal</a>
+        <a href="#services-offered" class="btn btn-outline">See Our Services</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Meet Our Team -->
+  <section class="meet-team reveal">
+    <h2>Meet Our Property Management Team</h2>
+    <div class="team-content">
+      <p>Step away from the day-to-day headaches of real estate management. At Solving Consulting, our dedicated property specialists are committed to making your property work harder for you. From single residential units to entire commercial estates, we manage it all with unmatched professionalism and diligence.</p>
+      
+      <p class="highlight-text">"No more late rent, no more difficult tenants. We protect your investment like it's our own, delivering maximum occupancy and maximum returns."</p>
+      
+      <p>We provide the professional property management Nairobi trusts. Our expert team leverages deep local market knowledge, rigorous tenant screening, and proactive maintenance protocols to ensure your asset appreciates in value while generating steady, reliable income. Experience the peace of mind that comes with elite property management.</p>
+    </div>
+  </section>
+
+  <!-- What We Offer -->
+  <section id="services-offered" class="services-section reveal">
+    <div class="section-header">
+      <h2>What We Offer</h2>
+      <p>End-to-end property management solutions designed to optimize your rental income and preserve your asset's value.</p>
+    </div>
+    
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-home"></i></div>
+        <h3>Rental Property Management</h3>
+        <p>Comprehensive oversight of your residential or commercial properties, handling all day-to-day operations seamlessly.</p>
+      </div>
+      
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-user-shield"></i></div>
+        <h3>Tenant Screening & Onboarding</h3>
+        <p>Rigorous background checks, financial vetting, and seamless move-in processes to secure reliable, high-quality tenants.</p>
+      </div>
+      
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-wallet"></i></div>
+        <h3>Rent Collection & Disbursement</h3>
+        <p>Strict rent collection policies and timely digital disbursements directly to your account, ensuring consistent cash flow.</p>
+      </div>
+      
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-tools"></i></div>
+        <h3>Property Maintenance</h3>
+        <p>24/7 coordination of emergency repairs and scheduled preventative maintenance using our network of trusted contractors.</p>
+      </div>
+      
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-file-signature"></i></div>
+        <h3>Lease Agreement Preparation</h3>
+        <p>Drafting robust, legally compliant lease agreements that protect your rights and clearly define tenant responsibilities.</p>
+      </div>
+      
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+        <h3>Property Financial Reporting</h3>
+        <p>Detailed monthly and annual financial statements, making tax time and portfolio assessment effortless.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-chart-line"></i></div>
+        <h3>Real Estate Advisory</h3>
+        <p>Strategic advice on property upgrades, market positioning, and portfolio expansion to maximize your long-term ROI.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-bullhorn"></i></div>
+        <h3>Vacancy Marketing & Listing</h3>
+        <p>Aggressive multi-channel marketing campaigns and professional photography to fill vacancies faster at premium rates.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-balance-scale"></i></div>
+        <h3>Dispute Resolution</h3>
+        <p>Professional mediation and strict enforcement of lease terms, handling conflicts, and legal proceedings gracefully if required.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Our Team -->
+  <section class="why-us reveal">
+    <div class="section-header">
+      <h2>Why Choose Our Team</h2>
+      <p>We set the standard for reliable, transparent, and profitable property management in Nairobi.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+        <h4>Uncompromising Protection</h4>
+        <p>Your property is a major asset. Our rigorous screening and proactive maintenance safeguard its value and structural integrity.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fas fa-chart-bar"></i></div>
+        <h4>Optimized Returns</h4>
+        <p>Through strategic marketing, high tenant retention, and strict rent collection, we consistently deliver superior net yields.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fas fa-bed"></i></div>
+        <h4>Zero-Stress Ownership</h4>
+        <p>Say goodbye to 2 AM maintenance calls and rent chasing. We handle 100% of the operational burden so you can simply collect your returns.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="cta-banner reveal" id="contact">
+    <h2>Ready for Hassle-Free Property Management?</h2>
+    <p>Let Solving Consulting turn your real estate portfolio into a truly passive, high-performing investment. Contact our property experts today.</p>
+    <a href="mailto:kimofficepeter@gmail.com" class="btn btn-primary">Request a Free Property Assessment</a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-col">
+        <h4>Solving Consulting</h4>
+        <p>Service Beyond Your Needs. We provide elite business, marketing, and financial consulting services tailored for the modern enterprise.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Info</h4>
+        <p><i class="fas fa-map-marker-alt"></i> Kamrose Plaza, Suite 3, Naivasha Road, Dagoretti — Riruta, Nairobi</p>
+        <p><i class="fas fa-phone-alt"></i> +254 794 088 216</p>
+        <p><i class="fas fa-envelope"></i> kimofficepeter@gmail.com</p>
+      </div>
+      <div class="footer-col">
+        <h4>Payment Details</h4>
+        <p>M-Pesa Paybill: <strong>222111</strong></p>
+        <p>Account: <strong>060000000697</strong></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Solving Consulting & Business Services. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/254794088216" class="whatsapp-float" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- Scripts -->
+  <script>
+    // Hamburger Menu
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    // Scroll Reveal
+    function reveal() {
+      var reveals = document.querySelectorAll(".reveal");
+      for (var i = 0; i < reveals.length; i++) {
+        var windowHeight = window.innerHeight;
+        var elementTop = reveals[i].getBoundingClientRect().top;
+        var elementVisible = 150;
+        if (elementTop < windowHeight - elementVisible) {
+          reveals[i].classList.add("active");
+        }
+      }
+    }
+    window.addEventListener("scroll", reveal);
+    reveal(); // trigger on load
+  </script>
+</body>
+</html>
