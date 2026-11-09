@@ -731,8 +731,25 @@
       .submit-btn { padding: 14px; font-size: 0.9rem; width: 100%; }
       .cd-icon { width: 40px; height: 40px; flex-shrink: 0; }
 
-      /* ── Footer ── */
+  
+    /* ── Footer contact bar ── */
+    .footer-contact-bar {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 1.2rem 2.5rem; font-size: 0.8rem; color: #94a3b8;
+      padding: 1rem 2rem; border-top: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-contact-bar span { display: flex; align-items: center; gap: 7px; }
+    .footer-contact-bar i { color: var(--gold); }
+    .footer-contact-bar a { color: #94a3b8; text-decoration: none; }
+    .footer-contact-bar a:hover { color: var(--gold); }
+    /* ── Footer ── */
       footer { padding: 2rem 1.2rem; gap: 1.2rem; }
+      .footer-contact-bar {
+        flex-direction: column; align-items: center;
+        gap: 0.6rem; text-align: center; padding: 0.8rem 1rem;
+        font-size: 0.75rem;
+      }
       .footer-links { flex-wrap: wrap; justify-content: center; gap: 0.8rem; }
       .footer-links a { font-size: 0.78rem; }
 
@@ -1322,6 +1339,11 @@
   <div class="footer-mid">
     <div class="footer-copy">© 2026 Solving Consulting & Business Services. All rights reserved.</div>
     <div class="footer-tag">"Service Beyond Your Needs"</div>
+  </div>
+  <div class="footer-contact-bar">
+    <span><i class="fas fa-map-marker-alt"></i> Kamrose Plaza, Suite 3, Naivasha Road, Dagoretti - Riruta, Nairobi</span>
+    <span><i class="fas fa-phone-alt"></i> <a href="tel:+254794088216">+254 794 088 216</a></span>
+    <span><i class="fas fa-envelope"></i> <a href="mailto:info@solvingconsultancy.com">info@solvingconsultancy.com</a></span>
   </div>
   <div class="footer-links">
     <a href="#hero">Home</a>
